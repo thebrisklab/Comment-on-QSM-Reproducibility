@@ -83,8 +83,8 @@ temp = diag(c(sigmab1,sigmab2,sigmab3,sigmab4,sigmab5,sigmab6))
 # In practice, this will be different for each pair of brain regions.
 # For 6 brain regions, this involves 6*5/2 = 15 correlations.
 # We simplify this setting by setting all correlations
-# 15 correlation sequal to the same value. 
-# We consider to correlations: 1 for all regions; 0.5 for all regions:
+# 15 correlations equal to the same value. 
+# We consider two correlations: 1 for all regions; 0.5 for all regions:
 rho=c(1,0.5)
 varcomp.mismodel.list=list(rho1=NULL,rho0.5=NULL)
 varcomp.modelcorrect.list.r1 = list(rho1=NULL,rho0.5=NULL)
@@ -114,10 +114,7 @@ for (i in 1:length(rho)) {
   # These results were added to the revised manuscript:
   varcomp.modelcorrect.list.r1[[i]] = as.data.frame(VarCorr(lmer(yi1r~(1|id))))
   varcomp.modelcorrect.list.r6[[i]] = as.data.frame(VarCorr(lmer(yi6r~(1|id))))
-  
-  
-  
-  
+ 
   sub.data = sim.data[sim.data$replicate==1,]
   mismodel = lmer(y~(1|id)+(1|region),data=sim.data[sim.data$replicate==1,])
   summary(mismodel)
@@ -133,11 +130,14 @@ varcomp.mismodel.list
 
 
 # these numbers appear in the manuscript:
+# ratio of inter-participant to "error" variance in mis-specified model:
 # rho=1
 varcomp.mismodel.list[[1]][1,5]/varcomp.mismodel.list[[1]][3,5]
 
 # rho=0.5
 varcomp.mismodel.list[[2]][1,5]/varcomp.mismodel.list[[2]][3,5]
+
+
 
 
 ## Using the correct model:
